@@ -192,7 +192,7 @@ public final class App extends Application {
         }
         System.out.println("Player1 Wins :"+ player1wins + "  Player2 Wins: "+ player2wins+ "  Player3 Wins: "+ player3wins+ "  RandomAgent Wins: "+ player4wins);
         App.dataArr=arr;
-        launch( args);
+        //launch( args); for chart graphs
         
         
     }
@@ -209,11 +209,7 @@ public final class App extends Application {
         players[1] = new Player("Player2");
         players[2] = new Player("Player3");
         players[3] = new Player("Player4");
-        for (int i = 0; i <130 ; i++) {
-            Random ran = new Random();
-            int x = ran.nextInt(13-1);
-            System.out.println(x);
-        }
+        
         
         for (int i = 0; i <13 ; i++) {
             players[0].addToPlayerHand(myDeck.dealCard());
@@ -223,12 +219,12 @@ public final class App extends Application {
         }
         
         players[0].showPlayerHand();
-        
         try (Scanner sc = new Scanner(System.in)) {
             boolean bool = true;
             int sira=0;
             int firstIndex=0;
             int otherIndex=0;
+            String[] normalPlayerCard=null;
             myGarbage= new CardGarbage();
             for (int numOfRounds = 0; numOfRounds < 13; numOfRounds++) {
                 Board board = new Board();
@@ -239,37 +235,43 @@ public final class App extends Application {
                     for (int i = 0; i < 4; i++) {
                         Card playerCard=null;
 
-                    
+                        
                     System.out.print("Player"+((i+otherIndex)%4+1)+" dan cikarilcak kart ? ");    
                     switch ((i+otherIndex)%4) {
                         case 0:
+                        String[] normalPlayer=null;
+                        String cardName=sc.nextLine();
                         if(i==0) //first card
-                        {
+                        {  
                             firstIndex=0;
-                                    playerCard=firstCard(players[0], players[1], players[2], players[3]);
-                                    if(players[0].getFromPlayerHand( playerCard.suit+" "+playerCard.face ))
-                                        System.out.println("dustu");
-                                    leadSuit=playerCard.suit;
+                                    
+                                    if(players[0].getFromPlayerHand( cardName ))
+                                        System.out.println("kartı dustu");
+                                    normalPlayerCard=cardName.split(" ");
+                                    playerCard= new Card(normalPlayerCard[1], normalPlayerCard[0]);
 
                         }
                         if(i==1) //second card
                         {
-                            playerCard=secondCard(board.getCard(0),players[0], players[1], players[2]);
-                                    if(players[0].getFromPlayerHand( playerCard.suit+" "+playerCard.face ))
-                                    System.out.println("dustu");
+                            if(players[0].getFromPlayerHand( cardName ))
+                                        System.out.println("kartı dustu");
+                                        normalPlayerCard=cardName.split(" ");
+                                    playerCard= new Card(normalPlayerCard[1], normalPlayerCard[0]);
                         }
                         if(i==2) //third card
                         {
-                            playerCard=thirdCard(board.getCard(0),board.getCard(1),players[0], players[1]);
-                                    if(players[0].getFromPlayerHand( playerCard.suit+" "+playerCard.face ))
-                                    System.out.println("dustu");                                        
+                            if(players[0].getFromPlayerHand( cardName ))
+                                        System.out.println("kartı dustu");
+                                        normalPlayerCard=cardName.split(" ");
+                                    playerCard= new Card(normalPlayerCard[1], normalPlayerCard[0]);                              
                         }
 
                         if(i==3) //fourth card
                         {
-                            playerCard=fourthCard(board.getCard(0),board.getCard(1),board.getCard(2),players[0]);
-                                    if(players[0].getFromPlayerHand( playerCard.suit+" "+playerCard.face ))
-                                    System.out.println("dustu");            
+                            if(players[0].getFromPlayerHand( cardName ))
+                                        System.out.println("kartı dustu");
+                                        normalPlayerCard=cardName.split(" ");
+                                    playerCard= new Card(normalPlayerCard[1], normalPlayerCard[0]);            
                         }
 
                                 
@@ -353,7 +355,7 @@ public final class App extends Application {
                             break;
                         case 3:
                                 
-
+                                /*
                                 System.out.println("RandomPlayer karti dustu");
                                 bool=true;
                                 if(i==0) //first card
@@ -363,14 +365,10 @@ public final class App extends Application {
                                     if(players[3].getFromPlayerHand( playerCard.suit+" "+playerCard.face ))
                                         System.out.println("dustu");
                                     leadSuit=playerCard.suit;
-                                    /*
-                                    firstIndex=0;
-                                    playerCard=firstCard(players[0], players[1], players[2], players[3]);
-                                    if(players[0].getFromPlayerHand( playerCard.suit+" "+playerCard.face ))
-                                        System.out.println("dustu");
-                                    leadSuit=playerCard.suit;
-                                    */
+                                    
                                 }
+                                */
+                                /*
                                 if(i==1) //second card
                                 {
                                     playerCard=otherCard(board.getCard(0),players[3]);
@@ -382,6 +380,7 @@ public final class App extends Application {
                                     if(players[0].getFromPlayerHand( playerCard.suit+" "+playerCard.face ))
                                     System.out.println("dustu");                                
                                     */
+                                    /*
                                 }
                                     if(i==2) //third card
                                 {
@@ -392,6 +391,7 @@ public final class App extends Application {
                                     /*
                                                               
                                     */
+                                    /*
                                 }
 
                                 if(i==3) //fourth card
@@ -402,8 +402,38 @@ public final class App extends Application {
                                     /*
                                                             
                                     */
+                                    /*
                                 }
+                                */
+                                if(i==0) //first card
+                                    {
+                                        firstIndex=3;
+                                                playerCard=firstCard(players[3], players[0], players[1], players[2]);
+                                                if(players[0].getFromPlayerHand( playerCard.suit+" "+playerCard.face ))
+                                                System.out.println("Player4 karti dustu1");                              
+                                                leadSuit=playerCard.suit;
 
+                                    }
+                                    if(i==1) //second card
+                                    {
+                                        playerCard=secondCard(board.getCard(0),players[3], players[0], players[1]);
+                                                if(players[0].getFromPlayerHand( playerCard.suit+" "+playerCard.face ))
+                                                System.out.println("Player4 karti dustu1");                              
+                                            }
+                                    if(i==2) //third card
+                                    {
+                                        playerCard=thirdCard(board.getCard(0),board.getCard(1),players[3], players[0]);
+                                                if(players[0].getFromPlayerHand( playerCard.suit+" "+playerCard.face ))
+                                                System.out.println("Player4 karti dustu1");                              
+                                            }
+
+                                    if(i==3) //fourth card
+                                    {
+                                        
+                                        playerCard=fourthCard(board.getCard(0),board.getCard(1),board.getCard(2),players[3]);
+                                                if(players[0].getFromPlayerHand( playerCard.suit+" "+playerCard.face ))
+                                                System.out.println("Player4 karti dustu1");                              
+                                            }
 
                             break;
                         default:
